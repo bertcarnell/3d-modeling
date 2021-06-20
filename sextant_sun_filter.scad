@@ -1,11 +1,11 @@
 // parameters
 
-major_od = 33.25;
-inner_d = 25.18;
-outer_h = 11.86;
-level_h = 5.38;
+major_od = 34.0; // 33.25;
+inner_d = 25.0; // 25.18;
+outer_h = 12.0; // 11.86;
+level_h = 5.0; // 5.38;
 n_facets = 100;
-off = 0.3;
+off = 0.25;
 mid_second = 50.0;
 major_len = 47.57;
 small_inner_d = 4.80;
@@ -36,8 +36,13 @@ difference(){
 
 union() {
     difference() {
-        translate([mid_second, 0.0, 0.0]) {
-           cylinder(h = lower_h, r1 = ledge_od/2.0 - off, r2 = ledge_od/2.0 - off, center = false, $fn = n_facets);
+        union() {
+            translate([mid_second, 0.0, 0.0]) {
+               cylinder(h = lower_h, r1 = ledge_od/2.0 - off, r2 = ledge_od/2.0 - off, center = false, $fn = n_facets);
+            }
+            translate([mid_second, 0.0, 0.0]) {
+                cylinder(h = level_h, r1 = major_od/2.0, r2 = major_od/2.0, center = false, $fn = n_facets);
+            }
         }
         translate([mid_second, 0.0, -1.0]) {
            cylinder(h = lower_h + 2.0, r1 = inner_d/2.0, r2 = inner_d/2.0, center = false, $fn = n_facets);
@@ -49,7 +54,7 @@ union() {
     difference() {
         union() {
             translate([extra_pt, 0.0, 0.0]) {
-                cylinder(h = level_h, r1 = 5, r2 = 5, center = false, $fn = 100);
+                cylinder(h = level_h, r1 = 5, r2 = 5, center = false, $fn = n_facets);
             }
             linear_extrude(height = level_h) {
                     polygon([[75, 5], [75, -5], [63, -7], [63, 7]]);
@@ -60,6 +65,9 @@ union() {
                 cylinder(h = level_h + 2.0, r1 = small_inner_d/2.0, r2 = small_inner_d/2.0, center = false, $fn = 100);
             }
         }
+    }
+    translate([mid_second + major_od/2.0 + off, -2.5, level_h]) {
+        color("red") cube([5,5,5], center = false);
     }
 }
 
