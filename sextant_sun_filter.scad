@@ -5,7 +5,7 @@ inner_d = 25.0; // 25.18;
 outer_h = 12.0; // 11.86;
 level_h = 5.0; // 5.38;
 n_facets = 72;
-off = 0.25;
+off = 0.40;
 mid_second = 50.0;
 major_len = 47.57;
 small_inner_d = 5.2;  // 4.80
@@ -62,7 +62,7 @@ difference(){
     }
     // take out the cylinder that makes the ledge
     translate([0.0, 0.0, outer_h - lower_h]) {
-       cylinder(h = upper_h + 2.0, r1 = ledge_od/2.0 + 0.5, r2 = ledge_od/2.0 + 0.5, center = false);
+       cylinder(h = upper_h + 2.0, r1 = ledge_od/2.0 + 0.50, r2 = ledge_od/2.0 + 0.50, center = false);
     }
     // cut the notch in the side of the piece
     rotate_extrude(angle = 360.0, convexity = 2) {
@@ -106,7 +106,7 @@ union() {
             }
             // arm attachment
             linear_extrude(height = level_h) {
-                    polygon([[76, 5], [73, -3], [63, -4], [63, 7]]);
+                    polygon([[76, 5], [73, -4], [63, -5], [63, 7]]);
             }
         }
         // screw hole
@@ -115,8 +115,8 @@ union() {
         }
     }
     union() {
-        // snap fit // extra extensino is to enure some overlap
-        translate([mid_second + major_od/2.0 + off, -2.5, level_h - 0.1]) {
+        // snap fit // extra extension is to enure some overlap
+        translate([mid_second + major_od/2.0 + 2*off, -2.5, level_h - 0.1]) {
             cube([2.5,5,5+0.1], center = false);
         }
         // clip rotating to the right
@@ -126,10 +126,10 @@ union() {
     }
     linear_extrude(height = level_h) {
         polygon([[35, 5], [35, -5], 
-                 [mid_second - major_od/2.0 - off - 2.5, -5], 
-                 [mid_second - major_od/2.0 - off - 2.5, 5]]);
+                 [mid_second - major_od/2.0 - 2*off - 2.5, -5], 
+                 [mid_second - major_od/2.0 - 2*off - 2.5, 5]]);
     }
-    translate([mid_second - major_od/2.0 - off - 2.5, -2.5, level_h -0.1]) {
+    translate([mid_second - major_od/2.0 - 2*off - 2.5, -2.5, level_h -0.1]) {
         cube([2.5, 5, 5+0.1], center = false);
     }
     draw_clip2(-4.0);
