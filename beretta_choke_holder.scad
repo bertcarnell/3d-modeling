@@ -1,16 +1,17 @@
 choke_len = 90.0;
 choke_d = 22.0;
-choke_space = 2.0;
+choke_space = 1.5;
 
 box_outer_l = 140.0;
 box_height = 15.0;
-wall_thick = 2.0;
+wall_thick = 1.5;
 spacer = 0.5;
 
 box_outer_w = choke_len + 2*wall_thick;
 
 $fn = 50;
 
+// ------ Choker Holder Bottom ----------
 union(){
     difference(){
         cube([box_outer_l, box_outer_w, box_height], center = false);
@@ -21,33 +22,55 @@ union(){
                 }
             }
         }
-        translate([wall_thick + 4 * (choke_d + choke_space) + choke_space, wall_thick, wall_thick]){
-            cube([35.0, choke_len, choke_d], center = false);
+        left_square_bin = wall_thick + 4 * (choke_d + choke_space);
+        translate([left_square_bin, wall_thick, wall_thick]){
+            cube([box_outer_l - wall_thick - left_square_bin, choke_len, choke_d], center = false);
         }
     }
-    translate([120, 50, wall_thick]) {
+    translate([120, box_outer_w / 2.0, wall_thick]) {
         rotate([0, 0, -90])
-        color("green")
-        scale([.05, .05, 0.05]) 
-            surface("c:/repositories/3d-modeling/beretta-png-logo.png", center = true, invert = false);
+        //color("green")
+        scale([.15, .15, .05]) 
+            surface("c:/repositories/3d-modeling/beretta-png-logo-smaller.png", center = true, invert = false);
     }
 }
 
-difference(){
-    translate([-200, 0, 0]) {
-        cube([box_outer_l + 2 * wall_thick + 2 * spacer,
-              box_outer_w + 2 * wall_thick + 2 * spacer,
-              box_height + 5.0], center = false);
+offset_w = -100.0;
+x_inset_border = 26.0;
+y_inset_border = 38.5;
+
+// ------ Box Top ----------
+union() {
+    difference(){
+        translate([0, offset_w, 0]) {
+            cube([box_outer_l + 2 * wall_thick + 2 * spacer,
+                  box_outer_w + 2 * wall_thick + 2 * spacer,
+                  box_height + 5.0], center = false);
+        }
+        translate([wall_thick, offset_w + wall_thick, 2*wall_thick]){
+            cube([box_outer_l + 2 * spacer,
+                  box_outer_w + 2 * spacer,
+                  box_height + 10.0], center = false);
+        }
+        translate([x_inset_border, 
+                   offset_w + box_outer_w + 2 * wall_thick + 2 * spacer - y_inset_border, 
+                   wall_thick]) {
+            rotate([180, 0, 0])
+            cube([box_outer_l + 2 * wall_thick + 2 * spacer - 2 * x_inset_border, 
+                  box_outer_w + 2 * wall_thick + 2 * spacer - 2 * y_inset_border, 
+                  10], center = false);
+        }
     }
-    translate([-200 + wall_thick, wall_thick, wall_thick]){
-        cube([box_outer_l + 2 * spacer,
-              box_outer_w + 2 * spacer,
-              box_height + 10.0], center = false);
-    }
-    translate([-200 + (box_outer_l + 2 * wall_thick + 2 * spacer) / 2.0, 50, 0]) {
+    translate([(box_outer_l + 2 * wall_thick + 2 * spacer) / 2.0, 
+                offset_w + (box_outer_w + 2*wall_thick + 2*spacer) / 2.0, 
+                0]) {
         rotate([180, 0, 0])
-        color("green")
-        scale([.11, .11, 1]) 
-            surface("c:/repositories/3d-modeling/beretta-png-logo.png", center = true, invert = false);
+        //color("green")
+        // .1 is too much, 0.05, 0.06 not enough, 0.07 no, 0.08 no, 0.09 no
+        //scale([.2, .2, 0.07])
+        // pixels are 463 x 100
+        resize([92.6, 20, wall_thick+0.5])
+            surface("c:/repositories/3d-modeling/beretta-png-logo-smaller.png", 
+                    center = true, invert = true);
     }
 }
