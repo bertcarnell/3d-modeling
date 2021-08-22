@@ -61,11 +61,21 @@ union(){
         resize([46, 10, .5]) 
             surface("c:/repositories/3d-modeling/beretta-png-logo-smaller.png", center = true, invert = false);
     }
+    /*translate([0, box_outer_w - 5.0, 0]){
+        cube([5, 5, 18.0], center = false);
+    }
+    translate([box_outer_l - 5.0, box_outer_w - 5.0, 0]){
+        cube([5, 5, 18.0], center = false);
+    }
+    translate([box_outer_l - 5.0, 0, 0]){
+        cube([5, 5, 18.0], center = false);
+    }*/
 }
 
 offset_w = -115;
-x_inset_border = 13.0;
-y_inset_border = 44;
+x_inset_border = 9.4;
+y_inset_border = 43.5;
+box_top_height = box_height + 10.0;
 
 // ------ Box Top ----------
 union() {
@@ -73,12 +83,22 @@ union() {
         translate([0, offset_w, 0]) {
             cube([box_outer_l + 2 * wall_thick + 2 * spacer,
                   box_outer_w + 2 * wall_thick + 2 * spacer,
-                  box_height + 7.0], center = false);
+                  box_top_height], center = false);
         }
-        translate([wall_thick, offset_w + wall_thick, 2*wall_thick]){
+        /*translate([wall_thick, offset_w + wall_thick, 2*wall_thick]){
             cube([box_outer_l + 2 * spacer,
                   box_outer_w + 2 * spacer,
-                  box_height + 10.0], center = false);
+                  box_height + 15.0], center = false);
+        }*/
+        translate([2*wall_thick + spacer, offset_w + 2*wall_thick + spacer, 2*wall_thick]){
+            cube([box_outer_l - 2*wall_thick - 2*spacer,
+                  box_outer_w - 2*wall_thick - 2*spacer,
+                  box_height + 15.0], center = false);
+        }
+        translate([wall_thick, offset_w + wall_thick, 2*wall_thick + 10]){
+            cube([box_outer_l + 2 * spacer,
+                  box_outer_w + 2 * spacer,
+                  box_height + 15.0], center = false);
         }
         translate([x_inset_border, 
                    offset_w + box_outer_w + 2 * wall_thick + 2 * spacer - y_inset_border, 
@@ -94,7 +114,7 @@ union() {
                 0]) {
         rotate([180, 0, 0])
         // pixels are 463 x 100
-        resize([92.6, 20, wall_thick+0.5])
+        resize([100, 22, wall_thick+0.5])
             surface("c:/repositories/3d-modeling/beretta-png-logo-smaller.png", 
                     center = true, invert = true);
     }
