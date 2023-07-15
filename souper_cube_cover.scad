@@ -1,73 +1,77 @@
 
 l1 = 125.0;
 l2 = 129.0;
-h1 = 8.0;
-h2 = 5.0;
+h1 = 6.0;
+h2 = 4.0;
 u1 = 141.0;
 u2 = 145.0;
+r2 = 19.0;
+r3 = 2.0;
+$fn = 100;
+lip = 5.0;
 
-$fn = 50;
 
-// More information: https://danielupshaw.com/openscad-rounded-corners/
+//union() {
+//    cube([u1, u2, h2]);
+//    translate([(u1-l1)/2.0, (u2-l2)/2.0, h2]) {
+//        roundedcube([l1, l2, h1], center = false, radius = 5.0, apply_to = "z");
+//    }
+//}
 
-// Set to 0.01 for higher definition curves (renders slower)
-$fs = 0.20;
-
-module roundedcube(size = [1, 1, 1], center = false, radius = 0.5, apply_to = "all") {
-	// If single value, convert to [x, y, z] vector
-	size = (size[0] == undef) ? [size, size, size] : size;
-
-	translate_min = radius;
-	translate_xmax = size[0] - radius;
-	translate_ymax = size[1] - radius;
-	translate_zmax = size[2] - radius;
-
-	diameter = radius * 2;
-
-	obj_translate = (center == false) ?
-		[0, 0, 0] : [
-			-(size[0] / 2),
-			-(size[1] / 2),
-			-(size[2] / 2)
-		];
-
-	translate(v = obj_translate) {
-		hull() {
-			for (translate_x = [translate_min, translate_xmax]) {
-				x_at = (translate_x == translate_min) ? "min" : "max";
-				for (translate_y = [translate_min, translate_ymax]) {
-					y_at = (translate_y == translate_min) ? "min" : "max";
-					for (translate_z = [translate_min, translate_zmax]) {
-						z_at = (translate_z == translate_min) ? "min" : "max";
-
-						translate(v = [translate_x, translate_y, translate_z])
-						if (
-							(apply_to == "all") ||
-							(apply_to == "xmin" && x_at == "min") || (apply_to == "xmax" && x_at == "max") ||
-							(apply_to == "ymin" && y_at == "min") || (apply_to == "ymax" && y_at == "max") ||
-							(apply_to == "zmin" && z_at == "min") || (apply_to == "zmax" && z_at == "max")
-						) {
-							sphere(r = radius);
-						} else {
-							rotate = 
-								(apply_to == "xmin" || apply_to == "xmax" || apply_to == "x") ? [0, 90, 0] : (
-								(apply_to == "ymin" || apply_to == "ymax" || apply_to == "y") ? [90, 90, 0] :
-								[0, 0, 0]
-							);
-							rotate(a = rotate)
-							cylinder(h = diameter, r = radius, center = true);
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-union() {
-    cube([u1, u2, h2]);
-    translate([(u1-l1)/2.0, (u2-l2)/2.0, h2]) {
-        roundedcube([l1, l2, h1], center = false, radius = 5.0, apply_to = "z");
+difference() {
+    union() {
+        hull() {
+            translate([r2, r2, 0]) {
+                cylinder(h2, r = r2);
+            }
+            translate([u1-r2, r2, 0]) {
+                cylinder(h2, r =  r2);
+            }
+            translate([u1-r2, u2-r2, 0]) {
+                cylinder(h2, r =  r2);
+            }
+            translate([r2, u2-r2, 0]) {
+                cylinder(h2, r =  r2);
+            }
+        }
+        hull() {
+            translate([(u1-l1)/2.0 + r2, (u2-l2)/2.0 + r2, 0]) {
+                cylinder(h2 + h1, r =  r2);
+            }
+            translate([u1 - (u1-l1)/2.0 - r2, (u2-l2)/2.0 + r2, 0]) {
+                cylinder(h2 + h1, r =  r2);
+            }
+            translate([u1 - (u1-l1)/2.0 - r2, u2 - (u2-l2)/2.0 - r2, 0]) {
+                cylinder(h2 + h1, r =  r2);
+            }
+            translate([(u1-l1)/2.0 + r2, u2 - (u2-l2)/2.0 - r2, 0]) {
+                cylinder(h2 + h1, r =  r2);
+            }
+        }
+    }
+    translate([u1/2.0, u2/2.0, -1]) {
+        cylinder(1.5*h2 + 1.0, r = r3);
+    }
+    hull() {
+        translate([(u1-l1)/2.0 + r2 + lip, (u2-l2)/2.0 + r2 + lip, h2]) {
+            cylinder(h2 + h1, r =  r2);
+        }
+        translate([u1 - (u1-l1)/2.0 - r2 - lip, (u2-l2)/2.0 + r2 + lip, h2]) {
+            cylinder(h2 + h1, r =  r2);
+        }
+        translate([u1 - (u1-l1)/2.0 - r2 - lip, u2 - (u2-l2)/2.0 - r2 - lip, h2]) {
+            cylinder(h2 + h1, r =  r2);
+        }
+        translate([(u1-l1)/2.0 + r2 + lip, u2 - (u2-l2)/2.0 - r2 - lip, h2]) {
+            cylinder(h2 + h1, r =  r2);
+        }
     }
 }
 
+translate([-25, 0, 0]) {
+    union() {
+        cylinder(h2, r = 20);
+        cylinder(h2 + 2*h1, r = 8);
+        cylinder(h2 + 2*h1 + h2, r = r3);
+    }
+}
