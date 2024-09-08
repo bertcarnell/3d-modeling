@@ -5,10 +5,12 @@ cube_z = 22.5;
 tube_d1 = 12.8;
 tube_d2 = 11.8;
 tube_h = 15.9;
-nx = 2;
-ny = 3;
+nx = 5;
+ny = 8;
 inset_pin = 3.0;
 pin_h = 4;
+pin_r = 1.75;
+pin_hole_r = 2.0;
 
 $fn = 100;
 
@@ -27,28 +29,28 @@ difference() {
             }
         }
         translate([inset_pin, inset_pin, cube_z]) {
-            cylinder(h = pin_h, r = 1.5, center = false);
+            cylinder(h = pin_h, r = pin_r, center = false);
         }
         translate([nx*cube_x-inset_pin, ny*cube_y-inset_pin, cube_z]) {
-            cylinder(h = pin_h, r = 1.5, center = false);
+            cylinder(h = pin_h, r = pin_r, center = false);
         }
         translate([inset_pin, ny*cube_y-inset_pin, cube_z]) {
-            cylinder(h = pin_h, r = 1.5, center = false);
+            cylinder(h = pin_h, r = pin_r, center = false);
         }
         translate([nx*cube_x-inset_pin, inset_pin, cube_z]) {
-            cylinder(h = pin_h, r = 1.5, center = false);
+            cylinder(h = pin_h, r = pin_r, center = false);
         }
     }
     translate([inset_pin, inset_pin, -0.5]) {
-        cylinder(h = pin_h + 1.5, r = 1.6, center = false);
+        cylinder(h = pin_h + 1.5, r = pin_hole_r, center = false);
     }
     translate([nx*cube_x-inset_pin, ny*cube_y-inset_pin, -0.5]) {
-        cylinder(h = pin_h + 1.5, r = 1.6, center = false);
+        cylinder(h = pin_h + 1.5, r = pin_hole_r, center = false);
     }
     translate([inset_pin, ny*cube_y-inset_pin, -0.5]) {
-        cylinder(h = pin_h + 1.5, r = 1.6, center = false);
+        cylinder(h = pin_h + 1.5, r = pin_hole_r, center = false);
     }
     translate([nx*cube_x-inset_pin, inset_pin, -0.5]) {
-        cylinder(h = pin_h + 1.5, r = 1.6, center = false);
+        cylinder(h = pin_h + 1.5, r = pin_hole_r, center = false);
     }
 }
