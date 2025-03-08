@@ -21,13 +21,13 @@ union() {
                 }
             }
             if (i == 0) {
-                translate([-2, j*cube_y + 0.5*cube_y - 2, 1]) {
-                    color("Green") linear_extrude(cube_z) text(str(j+1), size = 3);
+                translate([-2.5, j*cube_y + 0.5*cube_y - 2, 1]) {
+                    color("Green") linear_extrude(cube_z) text(str(j+1), size = 5);
                 }
             }
         }
-        translate([i*cube_x + 0.5*cube_x - 2, -2, 1]) {
-            color("Red") linear_extrude(cube_z) text(x_letters[i], size = 3);
+        translate([i*cube_x + 0.5*cube_x - 2, -3, 1]) {
+            color("Red") linear_extrude(cube_z) text(x_letters[i], size = 4);
         }
     }
     // BORDERS

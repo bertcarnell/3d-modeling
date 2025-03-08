@@ -8,8 +8,8 @@ board_with_dovetail_tails(
     board_length=board_length,
     board_width=board_width,
     board_thickness=board_thickness,
-    tail_length=tail_length,
-    tail_width=tail_width,
+    tail_length=tail_length+0.2,
+    tail_width=tail_width-0.2,
     pin_width=pin_width,
     tail_count=tail_count,
     angle=angle
@@ -21,8 +21,8 @@ board_with_dovetail_tails(
     board_length=side_board_length,
     board_width=board_width,
     board_thickness=board_thickness,
-    tail_length=tail_length,
-    tail_width=tail_width,
+    tail_length=tail_length+0.2,
+    tail_width=tail_width-0.2,
     pin_width=pin_width,
     tail_count=tail_count,
     angle=angle

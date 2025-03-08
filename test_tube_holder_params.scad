@@ -7,7 +7,7 @@ cube_y = tube_y + 2*edge_y;
 cube_x = tube_x + 2*edge_x;
 cube_z = tube_z;
 nx = 4;
-ny = 5;
+ny = 6;
 x_letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
 
 $fn = 100;
