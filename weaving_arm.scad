@@ -12,6 +12,7 @@ triangle_mid_x = 22.23;
 triangle_mid_y = 40.33;
 handle_back = 6.6;
 new_width = 3.25 * 2.54 * 10 + 2*small_arm_width;
+angled_latch_height = 3/8 * 2.54 * 10.0;
 
 difference() {
     union() {
@@ -43,8 +44,8 @@ difference() {
         // small angled latch
         translate([triangle_x, -triangle_y, 0]) {
             rotate([0, 0, -47.8]) {
-                cube([small_arm_width, 0.75*2.54*10 + small_arm_latch, arm_thickness]);
-                translate([-small_arm_latch, 0.75*2.54*10, 0]){
+                cube([small_arm_width, angled_latch_height + small_arm_latch, arm_thickness]);
+                translate([-small_arm_latch, angled_latch_height, 0]){
                    linear_extrude(arm_thickness){
                       polygon([[0, 0], [small_arm_latch, 0], [small_arm_latch, small_arm_latch]]);
                    }
@@ -62,8 +63,8 @@ difference() {
                    -triangle_y+sin(47.8)*new_width - 2*sin(47.8)*small_arm_width, 
                    arm_thickness]) {
             rotate([0, 180, -47.8]) {
-                cube([small_arm_width, 0.75*2.54*10 + small_arm_latch, arm_thickness]);
-                translate([-small_arm_latch, 0.75*2.54*10, 0]){
+                cube([small_arm_width, angled_latch_height + small_arm_latch, arm_thickness]);
+                translate([-small_arm_latch, angled_latch_height, 0]){
                    linear_extrude(arm_thickness){
                       polygon([[0, 0], [small_arm_latch, 0], [small_arm_latch, small_arm_latch]]);
                    }
