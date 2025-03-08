@@ -4,14 +4,19 @@ inner_height = 3/8 * 2.54 * 10; //0.75 inches
 bar_width = 18;
 arm_latch = 2;
 length_extension = 10;
-cylinder_width = bar_width - 5;
+thin_wall = 2.5;
+cylinder_width = bar_width - 2*thin_wall;
 total_length = length_extension + inner_length + length_extension;
 $fn = 100;
 
 union() {
     difference() {
         union() {
+            // block
             cube([5*bar_width, total_length, block_base_height]);
+            translate([-thin_wall, thin_wall, 0])
+                cube([5*bar_width + 2*thin_wall, inner_length + length_extension, block_base_height - length_extension]);
+            // rounded 3 corners
             translate([0, length_extension/2, 0])
                 cylinder(block_base_height + inner_height + arm_latch, r = length_extension/2);
             translate([0, total_length - length_extension/2, 0])
@@ -20,6 +25,13 @@ union() {
                 cylinder(block_base_height + inner_height + arm_latch, r = length_extension/2);
             translate([5*bar_width, total_length - length_extension/2, 0])
                 cylinder(block_base_height + inner_height + arm_latch, r = length_extension/2);
+            // rounded top
+            translate([0, thin_wall, block_base_height - length_extension])
+                rotate([-90,0,0])
+                    cylinder(h = inner_length + length_extension, r = thin_wall);
+            translate([5*bar_width, thin_wall, block_base_height - length_extension])
+                rotate([-90,0,0])
+                    cylinder(h = inner_length + length_extension, r = thin_wall);
         }
         for (i = [1,3]) {
             translate([i*bar_width, length_extension, -1]) {
@@ -59,5 +71,10 @@ union() {
             }
         }
     }
+    // straps to hold sides in
+    translate([0, length_extension - 1, 0])
+        cube([5*bar_width, 1, 0.4]);
+    translate([0, total_length - length_extension, 0])
+        cube([5*bar_width, 1, 0.4]);
 
 }
