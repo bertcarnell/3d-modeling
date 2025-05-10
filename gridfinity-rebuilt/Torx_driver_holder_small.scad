@@ -1,7 +1,8 @@
-// Medium Torx Driver Holder
+my_grid = 42;
+block_w = 7;
 
-shank1 = 3 / 2 + 0.2;
-h1 = 21 / 2;
+barrel_d = 13.0;
+stem_d = 4;
 
 /*
 https://github.com/kennetek/gridfinity-rebuilt-openscad
@@ -18,9 +19,9 @@ $fs = 0.25; // .01
 
 /* [General Settings] */
 // number of bases along x-axis
-gridx = 4; //.5
+gridx = 3; //.5
 // number of bases along y-axis
-gridy = 2; //.5
+gridy = 3; //.5
 // bin height. See bin height information and "gridz_define" below.
 gridz = 1; //.1
 
@@ -69,12 +70,6 @@ enable_thumbscrew = false;
 hole_options = bundle_hole_options(refined_holes, magnet_holes, screw_holes, crush_ribs, chamfer_holes, printable_hole_top);
 
 // ===== IMPLEMENTATION ===== //
-lr_buffer = 5;
-gamma = 1.2;
-my_grid = 42;
-block_w = 7;
-letter_height = 1;
-letter_size = 2;
 union() {
     gridfinityInit(gridx, gridy, height(gridz, gridz_define, style_lip, enable_zsnap), height_internal, sl=style_lip) {
         cutEqual(n_divx = divx, n_divy = divy, style_tab = style_tab, scoop_weight = scoop, place_tab = place_tab);
@@ -82,20 +77,25 @@ union() {
     gridfinityBase([gridx, gridy], hole_options=hole_options, only_corners=only_corners, thumbscrew=enable_thumbscrew);
 
     difference(){
-        color("red") translate([-block_w/2, -my_grid, 7]) cube([block_w, 2*my_grid, h1]);
-        translate([-block_w/2 - 1, -my_grid + lr_buffer + h1/2, 7+h1]) rotate([0, 90, 0]) cylinder(h = block_w + 2, r = shank1, center = false);
-        translate([-block_w/2 - 1, -my_grid + lr_buffer + gamma*1.5*h1, 7+h1]) rotate([0, 90, 0]) cylinder(h = block_w + 2, r = shank1, center = false);
-        translate([-block_w/2 - 1, -my_grid + lr_buffer + gamma*2.5*h1, 7+h1]) rotate([0, 90, 0]) cylinder(h = block_w + 2, r = shank1, center = false);
-        translate([-block_w/2 - 1, -my_grid + lr_buffer + gamma*3.5*h1, 7+h1]) rotate([0, 90, 0]) cylinder(h = block_w + 2, r = shank1, center = false);
-        translate([-block_w/2 - 1, -my_grid + lr_buffer + gamma*4.5*h1, 7+h1]) rotate([0, 90, 0]) cylinder(h = block_w + 2, r = shank1, center = false);
-        translate([-block_w/2 - 1, -my_grid + lr_buffer + gamma*5.5*h1, 7+h1]) rotate([0, 90, 0]) cylinder(h = block_w + 2, r = shank1, center = false);
+        color("red") 
+        translate([-block_w/2 - my_grid, -1.5*my_grid, 7]) cube([block_w, gridy*my_grid, barrel_d/2]);
+        for (i = [1:8]) {
+            translate([-block_w/2 - my_grid - 1, -1.5*my_grid + gridy*my_grid/9*i, 7 + barrel_d/2]) rotate([0, 90, 0]) cylinder(h = block_w + 2, r = barrel_d/2);
+        }
     }
-    translate([-1, -my_grid + lr_buffer + h1/2 - 3, 7+h1]) linear_extrude(letter_height, center = false) rotate([0, 0, -90]) text("T10", size=2);
+    difference() {
+        color("blue")
+        translate([-block_w/2 + my_grid, -1.5*my_grid, 7]) cube([block_w, gridy*my_grid, barrel_d/2]);
+        for (i = [1:8]) {
+            translate([-block_w/2 + my_grid - 1, -1.5*my_grid + gridy*my_grid/9*i, 7 + barrel_d/2]) rotate([0, 90, 0]) cylinder(h = block_w + 2, r = stem_d/2 + 0.3);
+        }
+    }
+        
+    /*translate([-1, -my_grid + lr_buffer + h1/2 - 3, 7+h1]) linear_extrude(letter_height, center = false) rotate([0, 0, -90]) text("T10", size=2);
     translate([-1, -my_grid + lr_buffer + gamma*1.5*h1 - 3, 7+h1]) linear_extrude(letter_height, center = false) rotate([0, 0, -90]) text("T9", size=letter_size);
     translate([-1, -my_grid + lr_buffer + gamma*2.5*h1 - 3, 7+h1]) linear_extrude(letter_height, center = false) rotate([0, 0, -90]) text("T8", size=letter_size);
     translate([-1, -my_grid + lr_buffer + gamma*3.5*h1 - 3, 7+h1]) linear_extrude(letter_height, center = false) rotate([0, 0, -90]) text("T7", size=letter_size);
     translate([-1, -my_grid + lr_buffer + gamma*4.5*h1 - 3, 7+h1]) linear_extrude(letter_height, center = false) rotate([0, 0, -90]) text("T6", size=letter_size);
-    translate([-1, -my_grid + lr_buffer + gamma*5.5*h1 - 3, 7+h1]) linear_extrude(letter_height, center = false) rotate([0, 0, -90]) text("T5", size=letter_size);
+    translate([-1, -my_grid + lr_buffer + gamma*5.5*h1 - 3, 7+h1]) linear_extrude(letter_height, center = false) rotate([0, 0, -90]) text("T5", size=letter_size);*/
 }
-
 
