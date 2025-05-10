@@ -2,7 +2,7 @@ my_grid = 42;
 block_w = 7;
 
 barrel_d = 13.0;
-stem_d = 4;
+stem_d = 2.5;
 
 /*
 https://github.com/kennetek/gridfinity-rebuilt-openscad
