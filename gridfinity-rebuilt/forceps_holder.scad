@@ -85,9 +85,9 @@ my_grid = 42.0;
 forcep_w = 7.0;
 gap = 5.0;
 
-translate([-1.5*my_grid, -0.75*my_grid + 5, 6]) {
+translate([-1.5*my_grid, -0.5*my_grid - 5, 6]) {
     difference() {
-        rotate([90, 0, 0]) linear_extrude(height = 0.75*my_grid)
+        rotate([90, 0, 0]) linear_extrude(height = my_grid-10)
         difference() {
             square([3*my_grid, my_grid]);
             for(i = [0:10]) {
@@ -105,17 +105,31 @@ translate([-1.5*my_grid, -0.75*my_grid + 5, 6]) {
                 }
             }
         }
-        rotate([0, 90, 0]) translate([0, -0.75/2*my_grid, 0]) 
-            cylinder(h=200, r = 10);
+        color("purple") 
+            rotate([0, 90, 0]) 
+            translate([0, -0.5*my_grid + 5, 0]) 
+            cylinder(h=200, r = 13);
     }
 }
 
 translate([-1.5*my_grid, 0.5*my_grid, 6]) {
     difference() {
-        cube([3*my_grid, 5, my_grid/2]);
+        translate([10,0,0]) cube([3*my_grid-10, 5, my_grid/2]);
         for(i = [1:7]) {
             color("red") 
                 translate([(i*3+1)*gap+gap, my_grid/2, my_grid/2])
+                    rotate([90, 0, 0])
+                        cylinder(h = my_grid, r = 6);
+        }
+    }
+}
+
+translate([-1.5*my_grid, 1.5*my_grid-5, 6]) {
+    difference() {
+        translate([10,0,0]) cube([1.5*my_grid-10, 5, my_grid*2/3]);
+        for(i = [1:7]) {
+            color("blue") 
+                translate([(i*3+1)*gap+gap, my_grid-5, my_grid*2/3])
                     rotate([90, 0, 0])
                         cylinder(h = my_grid, r = 6);
         }
