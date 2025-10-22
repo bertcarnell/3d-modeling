@@ -1,0 +1,62 @@
+---
+title: "3D Printing Instructions"
+author: "Rob Carnell"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+knit: (function(inputFile, encoding) {rmarkdown::render(inputFile, encoding = encoding, output_file = "../docs/Instructions.html")})
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Design
+
+- [ ] Design the part using a CAD program
+    - [OpenScad](https://openscad.org/)
+    - [TinkerCad](https://www.tinkercad.com/)
+    - [Fusion 360](https://www.autodesk.com/products/fusion-360/overview)
+- [ ] Export the design from the CAD program in a shape file
+    - `STL` files are common export formats
+    
+## Slicer
+
+- [ ] Slice the part in [PrusaSlicer](https://www.prusa3d.com/page/prusaslicer_424/)
+    - Log in (top right corner)
+    - In the `Plater` view, import a `STL` file using the cube with a plus sign
+        - Alternatively, `File` -> `Import` -> `Import STL/3MF/STEP/...`
+        - Alternatively, `CTRL+i`
+    - Arrange the part or parts on the platter using the tools on the left
+    - Select the `Print Settings:`
+    - Select the `Filament`
+    - Select the `Printer`
+    - Select `Slice` in the bottom right
+- [ ] Send the file to the printer
+    - `Send to Connect`
+    - Check the printer is right and the filament is correct
+    - `Only copy to printer`
+    - `Confirm`
+    
+## Printer
+    
+- [ ] Check to make sure the printer is ready
+    - The smooth plate should be used for PLA
+    - The textured plate should be used for PETG
+- [ ] Print
+    - In the `Prusa Connect` view
+    - Select the printer
+    - Either from the `Dashboard`, or the `Printer Files`, select the part
+    to be printed and `Print`
+    - Confirm that you want to `Set Ready and Print now`, then `Confirm`
+- [ ] Remove the part and clean
+    - Remove the part by bending the plate and/or using the scraper
+    - Clean the plate with alcohol where ever the plastic was printed, or where
+    finger prints are on the platter
+    - Infrequently, acetone may be necessary to get the platter clean.  Only
+    use acetone on the smooth plate, and not the textured plate
+    
+    
