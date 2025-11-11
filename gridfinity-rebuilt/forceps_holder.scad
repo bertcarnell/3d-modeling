@@ -81,17 +81,21 @@ difference() {
     }
 }
 
+//  Tool holders
+
 my_grid = 42.0;
 forcep_w = 7.0;
 gap = 5.0;
 
-translate([-1.5*my_grid, -0.5*my_grid - 5, 6]) {
+// slant holders
+translate([-1.5*my_grid, -0.5*my_grid - 3.5, 6]) {
     difference() {
-        rotate([90, 0, 0]) linear_extrude(height = my_grid-10)
+        rotate([90, 0, 0]) linear_extrude(height = my_grid-7)
         difference() {
             square([3*my_grid, my_grid]);
             for(i = [0:10]) {
-                translate([-1.5*my_grid + 7 + (i*3 + 1)*gap, 5, 0]) rotate([0, 0, 45]) {
+                translate([-1.5*my_grid + 7 + (i*3 + 1)*gap, 5, 0]) 
+                rotate([0, 0, 45]) {
                     union() {
                         circle(r = forcep_w/2);
                         translate([0, -forcep_w/2, 0]) square([100, forcep_w]);
@@ -111,7 +115,14 @@ translate([-1.5*my_grid, -0.5*my_grid - 5, 6]) {
             cylinder(h=200, r = 13);
     }
 }
+translate([-1.5*my_grid+2, -1.5*my_grid+0.5, 7])
+color("orange")
+    cube([3*my_grid-4, 3, 10]);
+translate([-1.5*my_grid+2, -0.5*my_grid-3.5, 7])
+color("orange")
+    cube([3*my_grid-4, 3, 10]);
 
+// long bar of rests
 translate([-1.5*my_grid, 0.5*my_grid, 6]) {
     difference() {
         translate([10,0,0]) cube([3*my_grid-10, 5, my_grid/2]);
@@ -124,6 +135,7 @@ translate([-1.5*my_grid, 0.5*my_grid, 6]) {
     }
 }
 
+// short bar of rests
 translate([-1.5*my_grid, 1.5*my_grid-5, 6]) {
     difference() {
         translate([10,0,0]) cube([1.5*my_grid-10, 5, my_grid*2/3]);
