@@ -14,7 +14,7 @@ $fs = 0.25; // .01
 
 /* [General Settings] */
 // number of bases along x-axis
-gridx = 3; //.5
+gridx = 1; //.5
 // number of bases along y-axis
 gridy = 3; //.5
 // bin height. See bin height information and "gridz_define" below.
@@ -93,7 +93,7 @@ translate([-gridx/2*my_grid, -0.5*my_grid - 3.5, 6]) {
         rotate([90, 0, 0]) linear_extrude(height = my_grid-7)
         difference() {
             square([gridx*my_grid, my_grid]);
-            for(i = [0:10]) {
+            for(i = [0:2]) {
                 translate([-gridx/2*my_grid + 7 + (i*3 + 1)*gap, 5, 0]) 
                 rotate([0, 0, 45]) {
                     union() {
@@ -123,10 +123,10 @@ color("orange")
     cube([gridx*my_grid-4, 3, 10]);
 
 // long bar of rests
-translate([-gridx/2*my_grid, 0.5*my_grid, 6]) {
+translate([-gridx/2*my_grid-7, 0.5*my_grid, 6]) {
     difference() {
-        translate([10,0,0]) cube([gridx*my_grid-10, 5, my_grid/2]);
-        for(i = [1:7]) {
+        translate([10,0,0]) cube([gridx*my_grid-3, 5, my_grid/2]);
+        for(i = [1:4]) {
             color("red") 
                 translate([(i*3+1)*gap+gap, my_grid/2, my_grid/2])
                     rotate([90, 0, 0])
@@ -136,7 +136,8 @@ translate([-gridx/2*my_grid, 0.5*my_grid, 6]) {
 }
 
 // short bar of rests
-translate([-gridx/2*my_grid, 1.5*my_grid-5, 6]) {
+/*
+translate([-1.5*my_grid, 1.5*my_grid-5, 6]) {
     difference() {
         translate([10,0,0]) cube([1.5*my_grid-10, 5, my_grid*2/3]);
         for(i = [1:7]) {
@@ -147,4 +148,4 @@ translate([-gridx/2*my_grid, 1.5*my_grid-5, 6]) {
         }
     }
 }
-
+*/
