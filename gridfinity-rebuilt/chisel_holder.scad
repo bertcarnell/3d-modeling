@@ -1,7 +1,7 @@
 // Big Torx Driver Holder
 
-h1 = 16 / 2;
-h2 = 17 / 2;
+h1 = 18 / 2;
+h2 = 18 / 2;
 h3 = 29 / 2;
 h4 = 29 / 2;
 h5 = 29 / 2;
@@ -29,7 +29,7 @@ $fs = 0.25; // .01
 // number of bases along x-axis
 gridx = 4; //.5
 // number of bases along y-axis
-gridy = 3; //.5
+gridy = 4; //.5
 // bin height. See bin height information and "gridz_define" below.
 gridz = 1; //.1
 
@@ -78,7 +78,7 @@ enable_thumbscrew = false;
 hole_options = bundle_hole_options(refined_holes, magnet_holes, screw_holes, crush_ribs, chamfer_holes, printable_hole_top);
 
 // ===== IMPLEMENTATION ===== //
-spacer = 1;
+spacer = 8;
 my_grid = 42;
 block_w = 7;
 
@@ -113,7 +113,7 @@ difference() {
         difference(){
             color("red") 
                 translate([(gridx-1)/2*my_grid, -gridy/2*my_grid, 7]) 
-                cube([block_w, gridy*my_grid, h1]);
+                cube([block_w, gridy*my_grid, h5]);
             translate([(gridx-1)/2*my_grid - 1, -gridy/2*my_grid + h1 + spacer - shank1, 3 + 7]) 
                 cube([10, 2*shank1, 20]);
             translate([(gridx-1)/2*my_grid - 1, -gridy/2*my_grid + 2*h1 + h2 + 2*spacer - shank2, 3 + 7]) 
