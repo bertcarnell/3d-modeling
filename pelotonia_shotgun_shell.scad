@@ -1,10 +1,10 @@
-od = 20.50;
-id = 19.85;
-ih = 6.30;
-ph = 3.0;
+od = 19.85; // primary diameter
+id = 20.00; // diameter in the brass
+ih = 6.50;
+ph = 6.25; // primer height
 th = 56.0;
-pid = 6;
-pod = 7;
+pid = 6.0; // primer inner diameter
+pod = 7.5; // primer outer diameter
 $fn = 100;
 sqrt2 = sqrt(2);
 gold = (1+sqrt(5))/2;
