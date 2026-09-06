@@ -21,14 +21,14 @@ IN = 25.4; // mm per inch
 // ---------------- User parameters (inches) ----------------
 
 // Insert (the part that goes into the hole)
-insert_diameter_in    = 3;     // nominal outer diameter of the insert / hole
+insert_diameter_in    = 0.74;     // nominal outer diameter of the insert / hole
 insert_depth_in       = 0.5;  // length of the insert below the flange
-insert_clearance_in   = 0.02;  // diametral clearance so the insert slides into the hole
-wall_thickness_in     = 0.09;  // wall thickness of the hollow insert tube
+insert_clearance_in   = 0.05;  // diametral clearance so the insert slides into the hole
+wall_thickness_in     = 0.05;  // wall thickness of the hollow insert tube
 lead_in_chamfer_in    = 0.05;  // small taper on the insert's leading edge, to ease starting it into the hole
 
 // Flange (caps the hole on the near/visible face)
-flange_diameter_in    = 4;     // outer diameter of the flange
+flange_diameter_in    = 1;     // outer diameter of the flange
 flange_thickness_in   = 0.25; // thickness of the flange
 
 // Material the clips grab (e.g. 1/4" plywood, sheet metal, etc.)
